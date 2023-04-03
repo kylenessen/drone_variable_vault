@@ -7,7 +7,7 @@ api_key = os.getenv("OPENAI_API_KEY")
 openai.api_key = api_key
 #%%
 # Function to generate text
-def generate_text(prompt, model="text-davinci-003", temperature=0.7, max_tokens=100):
+def generate_text(prompt, model="text-davinci-003", temperature=0.7, max_tokens=1000):
     response = openai.Completion.create(
         engine=model,
         prompt=prompt,
@@ -20,7 +20,8 @@ def generate_text(prompt, model="text-davinci-003", temperature=0.7, max_tokens=
     return response
 
 # Make a test query
-prompt = "List the top 10 drone mapping variables."
+# why is this fstring not working?
+prompt = "In the context of drone mapping, Provide a summary of '{parameter}'. Put all mentioned concepts or other variables related to drone mapping in double brackets (e.g. [[Altitude]])".format(parameter="overlap")
 response = generate_text(prompt)
 
 # Get the generated text
